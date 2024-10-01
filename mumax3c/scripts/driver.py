@@ -7,7 +7,9 @@ import numpy as np
 import mumax3c as mc
 
 
-def driver_script(driver, system, compute=None, ovf_format="bin4", **kwargs):
+def driver_script(
+    driver, system, compute=None, ovf_format="bin4", mx3_txt=None, **kwargs
+):
     mx3 = "tableadd(E_total)\n"
     mx3 += "tableadd(dt)\n"
     mx3 += "tableadd(maxtorque)\n"
@@ -17,6 +19,10 @@ def driver_script(driver, system, compute=None, ovf_format="bin4", **kwargs):
             if attr != "evolver":
                 mx3 += f"{attr} = {value}\n"
 
+        if mx3_txt is not None:
+            mx3 += "\n"
+            mx3 += mx3_txt
+            mx3 += "\n"
         mx3 += "minimize()\n\n"
         mx3 += "save(m_full)\n"
         mx3 += "tablesave()\n\n"
@@ -30,6 +36,10 @@ def driver_script(driver, system, compute=None, ovf_format="bin4", **kwargs):
             if attr != "evolver":
                 mx3 += f"{attr} = {value}\n"
 
+        if mx3_txt is not None:
+            mx3 += "\n"
+            mx3 += mx3_txt
+            mx3 += "\n"
         mx3 += "relax()\n\n"
         mx3 += "save(m_full)\n"
         mx3 += "tablesave()\n\n"
@@ -101,6 +111,11 @@ def driver_script(driver, system, compute=None, ovf_format="bin4", **kwargs):
 
         mx3 += "setsolver(5)\n"
         mx3 += "fixDt = 0\n\n"
+
+        if mx3_txt is not None:
+            mx3 += "\n"
+            mx3 += mx3_txt
+            mx3 += "\n"
 
         t, n = kwargs["t"], kwargs["n"]
 

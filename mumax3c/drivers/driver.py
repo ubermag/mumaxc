@@ -72,7 +72,15 @@ class Driver(mm.ExternalDriver):
     def _write_input_files(self, system, **kwargs):
         self.write_mx3(system, **kwargs)
 
-    def write_mx3(self, system, dirname=".", ovf_format="bin8", abspath=True, **kwargs):
+    def write_mx3(
+        self,
+        system,
+        dirname=".",
+        ovf_format="bin8",
+        mx3_txt=None,
+        abspath=True,
+        **kwargs,
+    ):
         """Write the mx3 file and related files.
 
         Takes ``micromagneticmodel.System`` and write the mx3 file (and related files)
@@ -108,6 +116,12 @@ class Driver(mm.ExternalDriver):
             single precision) or ``'txt'`` (text-based, double precision).
             Defaults to ``'bin8'``.
 
+        mx3_txt : str, optional
+
+            Directly input string into mx3 file at a position immediately
+            before the type of driver explicity written.
+
+
         abspath : bool, optional
 
             If ``abspath=True`` absolute paths for additional input files (e.g. initial
@@ -125,6 +139,7 @@ class Driver(mm.ExternalDriver):
                 system,
                 compute=None,  # TODO does mumax3 support compute?
                 ovf_format=ovf_format,
+                mx3_txt=mx3_txt,
                 **kwargs,
             )
             with open(self._mx3filename(system), "w", encoding="utf-8") as mx3file:
