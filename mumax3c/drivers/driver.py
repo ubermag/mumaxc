@@ -130,10 +130,6 @@ class Driver(mm.ExternalDriver):
             with open(self._mx3filename(system), "wt", encoding="utf-8") as mx3file:
                 mx3file.write(mx3)
 
-            # Generate and save json info file for a drive (not compute).
-            if True:  # compute is None:  # TODO does mumxa3 support compute?
-                self._write_info_json(system, **kwargs)
-
         # TODO if self/system is modified for mx3 creation reset it here
         delattr(system, "region_relator")
 
