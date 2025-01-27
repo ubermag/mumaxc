@@ -53,7 +53,7 @@ def driver_script(driver, system, compute=None, ovf_format="bin4", **kwargs):
         if not gamma0:
             mx3 += "doprecess = false\n"
         else:
-            mx3 += f"gammaLL = {gamma0/mm.consts.mu0}\n"
+            mx3 += f"gammaLL = {gamma0 / mm.consts.mu0}\n"
             mx3 += "doprecess = true\n"
 
         if system.dynamics.get(type=mm.ZhangLi):
@@ -105,7 +105,7 @@ def driver_script(driver, system, compute=None, ovf_format="bin4", **kwargs):
         t, n = kwargs["t"], kwargs["n"]
 
         mx3 += f"for snap_counter:=0; snap_counter<{n}; snap_counter++{{\n"
-        mx3 += f"    run({t/n})\n"
+        mx3 += f"    run({t / n})\n"
         mx3 += "    save(m_full)\n"
         mx3 += "    tablesave()\n"
         mx3 += "}"
